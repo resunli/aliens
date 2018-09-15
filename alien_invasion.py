@@ -29,6 +29,8 @@ def run_game():
     # 统计信息
     stats = GameStats(ai_settings)
 
+    stats.high_score = gf.read_setting()
+
     # 显示得分
     sb = Scordboard(ai_settings, screen, stats)
 

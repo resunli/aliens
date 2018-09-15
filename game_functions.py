@@ -91,7 +91,7 @@ def check_keyup_events(event, ai_setting, screen, ship, bullets):
 def check_events(ai_setting, screen, sb, stats, play_button, ship, aliens, bullets):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            save_settings(ai_setting)
+            save_settings(stats)
             sys.exit()
 
         # 按键检查
@@ -275,15 +275,26 @@ def check_high_score(stats, sb):
         sb.prep_high_score()
 
 
-def save_settings(ai_setting):
-    filename = "settings.txt"
+def save_settings(stats):
+    filename = "settings.json"
     # save_data_file(filename,ai_setting)
 
-    dict = json.dumps(ai_setting, default=lambda obj: obj.__dict__, sort_keys=True, indent = 4)
+    # dict = json.dumps(ai_setting, default=lambda obj: obj.__dict__, sort_keys=True, indent = 4)
     with open(filename, 'w') as f_obj:
-        json.dump(dict, f_obj)
+        json.dump(stats.high_score, f_obj)
 
 
+def read_setting():
+    filename = "settings.json"
+    try:
+        with open(filename) as f_obj:
+            high_score = json.load(f_obj)
+        return int(high_score)
+    except FileNotFoundError:
+        return 0
+
+    else:
+        return int(high_score)
 
 
 
