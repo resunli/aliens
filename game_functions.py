@@ -151,6 +151,8 @@ def fire_bullet(ai_setting, screen, ship, bullets):
     if len(bullets) < ai_setting.bullet_allowed:
         new_bullet = Bullet(ai_setting, screen, ship)
         bullets.add(new_bullet)
+        snd_file = "sound/bullet.wav"
+        play_sound(snd_file)
 
 
 # 飞船撞击外星人
@@ -158,6 +160,10 @@ def ship_hit(ai_setting, stats, screen, sb, ship, aliens, bullets):
     if stats.ships_left > 0:
         # 撞击时减少数量
         stats.ships_left -= 1
+
+        # 声音
+        snd_bang = "sound/bangbang.wav"
+        play_sound(snd_bang)
 
         # 更新显示
         sb.prep_ships()
@@ -211,6 +217,8 @@ def check_bullet_alien_collisions(ai_setting, screen, stats, sb, ship, aliens, b
     # 检查是否有子弹碰到外星人
     collisions = pygame.sprite.groupcollide(bullets,aliens,True,True)
     if collisions:
+        snd_file = "sound/bomb.wav"
+        play_sound(snd_file)
         for aliens in collisions.values():
             stats.score += ai_setting.alien_points*(len(aliens))
             sb.prep_score()
@@ -295,6 +303,20 @@ def read_setting():
 
     else:
         return int(high_score)
+
+
+# 播放声音
+def play_sound(wav_file):
+    #pygame.time.delay(1000)  # 等待1秒让mixer完成初始化
+    soundwav = pygame.mixer.Sound(wav_file)
+    soundwav.play()
+
+
+
+
+
+
+
 
 
 
