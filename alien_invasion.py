@@ -16,6 +16,8 @@ from bullet import Bullet
 def run_game():
     # 初始化游戏并创建一个屏幕对象
     pygame.init()
+
+    # 声音初始化
     pygame.mixer.init()
 
     ai_settings = Settings()
@@ -67,7 +69,6 @@ def run_game():
 
         # 设置背景颜色 # 让最近绘制的屏幕可见
         gf.update_screen(ai_settings,screen, stats, sb, ship, aliens, bullets, play_button)
-
 
 
 # 运行游戏

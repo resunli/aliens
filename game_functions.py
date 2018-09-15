@@ -265,11 +265,12 @@ def check_play_button(ai_setting, screen, stats, sb, play_button, ship, aliens, 
         aliens.empty()
         bullets.empty()
 
+        sb.prep_images()
         # 重置计分
-        sb.prep_score()
-        sb.prep_high_score()
-        sb.prep_level()
-        sb.prep_ships()
+        # sb.prep_score()
+        # sb.prep_high_score()
+        # sb.prep_level()
+        # sb.prep_ships()
 
         # 创建新的外星人，并让飞船居中
         create_fleet(ai_setting, screen, ship, aliens)
