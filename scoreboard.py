@@ -38,7 +38,6 @@ class Scordboard():
         self.score_rect.right = self.screen_rect.right - 20
         self.score_rect.top = 20
 
-
     # 显示得分
     def show_score(self):
 
@@ -77,12 +76,4 @@ class Scordboard():
             ship.rect.y = 10
             self.ships.add(ship)
 
-        """
-        self.ships = Group()
-        for ship_number in range(self.stats.ships_left):
-            ship = Ship(self.ai_setting, self.screen)
-            ship.rect.x = 10+ ship_number * ship.rect.width
-            ship.rect.y = 10
-            ships.add(ship)
-"""
 

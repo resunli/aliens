@@ -1,5 +1,6 @@
 ll_env/
 __pycache__/
+build/
+dist/
 *.sqlite3
-
-.idea
+.idea/

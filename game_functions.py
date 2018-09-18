@@ -280,7 +280,7 @@ def check_play_button(ai_setting, screen, stats, sb, play_button, ship, aliens, 
 def check_high_score(stats, sb):
     if stats.score>stats.high_score:
         stats.high_score = stats.score
-
+        # 显示
         sb.prep_high_score()
 
 
@@ -313,31 +313,3 @@ def play_sound(wav_file):
     soundwav.play()
 
 
-
-
-
-
-
-
-
-
-"""
-# 保存文件
-def save_data_file(filename = "", datalist = []):
-    with open(filename, "w") as csvfile:
-        datawriter = csv.writer(csvfile, delimiter='\n',quotechar=" ",quoting=csv.QUOTE_NONNUMERIC)
-        datawriter.writerow(datalist)
-        csvfile.close()
-        print("Data saved!")
-
-
-def readdata(filename=""):
-    with open(filename, "r") as csvfile:
-        DataReader = csv.reader(csvfile, delimiter='\n',quotechar=" ",quoting=csv.QUOTE_NONNUMERIC)
-        Output = []
-        for Item in DataReader:
-            Output.append(Item[0])
-        csvfile.close()
-        print("Data read!")
-        return Output
-"""

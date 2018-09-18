@@ -1,7 +1,10 @@
+
 import pygame
+
 from pygame.sprite import Group
 
 import game_functions as gf
+
 from button import Button
 from scoreboard import Scordboard
 
@@ -10,10 +13,9 @@ from ship import Ship
 from game_stats import GameStats
 from time import sleep
 
-from bullet import Bullet
-
 
 def run_game():
+  
     # 初始化游戏并创建一个屏幕对象
     pygame.init()
 

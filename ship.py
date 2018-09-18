@@ -9,7 +9,6 @@ class Ship(Sprite):
         self.screen = screen
         self.ai_setting = ai_setting
 
-
         # 加载飞船图像并获取其外接矩形
         self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
@@ -31,7 +30,6 @@ class Ship(Sprite):
 
         # 正在开炎
         self.firing = False
-
 
     def update(self):
         # 根据移动标志调整飞船的位置 右  左  上  下 移动
