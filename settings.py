@@ -28,6 +28,13 @@ class Settings():
         self.bullet_color = 255,60,60
         self.bullet_allowed = 10
 
+        # 外星人子弹
+        self.alien_bullet_speed_factor =1
+        self.alien_bullet_width = 2
+        self.alien_bullet_height = 8
+        self.alien_bullet_color =60,60,60
+        self.alien_bullet_allowed = 9
+
         # 加速
         self.speedup_scale = 1.1
 
@@ -42,14 +49,11 @@ class Settings():
         self.bullet_speed_factor= 3
         self.alien_speed_factor = 1
 
-
         # 移动方向 1 右，-1 左
         self.alien_fleet_direction = 1
 
         # 得分
         self.alien_points = 50
-
-
 
     def increase_speed(self):
         self.ship_speed_factor *= self.speedup_scale

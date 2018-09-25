@@ -7,6 +7,7 @@ class GameStats():
         self.ships_left = ai_setting.ship_limit
         self.game_active = False
         self.score = 0
+        self.ship_hits = 0
         self.high_score =0
         self.level = 1
 
@@ -17,3 +18,6 @@ class GameStats():
         self.score =0
 
         self.level = 1
+
+        #飞船被外星人击中次数
+        self.ship_hits = 0

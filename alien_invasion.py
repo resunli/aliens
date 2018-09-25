@@ -44,6 +44,8 @@ def run_game():
 
     # 创建存储子弹的编组
     bullets = Group()
+    # 外星人子弹
+    alienbullets = Group()
 
     # 创建外星人组
     aliens = Group()
@@ -67,10 +69,13 @@ def run_game():
             gf.update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets)
 
             # 更新外星人位置
-            gf.update_aliens(ai_settings, stats, screen, sb, ship, aliens,bullets)
+            gf.update_aliens(ai_settings, stats, screen, sb, ship, aliens, bullets, alienbullets)
+
+            #
+            gf.alien_fire_bullet(ai_settings, screen, aliens, alienbullets)
 
         # 设置背景颜色 # 让最近绘制的屏幕可见
-        gf.update_screen(ai_settings,screen, stats, sb, ship, aliens, bullets, play_button)
+        gf.update_screen(ai_settings,screen, stats, sb, ship, aliens, bullets, alienbullets, play_button)
 
 
 # 运行游戏

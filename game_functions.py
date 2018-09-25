@@ -6,7 +6,7 @@ import csv
 from bullet import Bullet
 from alien import Alien
 from time import sleep
-
+from alienbullet import AlienBullet
 
 # 每行外星人数量
 def get_number_aliens_x(ai_setting, alien_width):
@@ -106,7 +106,7 @@ def check_events(ai_setting, screen, sb, stats, play_button, ship, aliens, bulle
             check_keyup_events(event,ai_setting, screen, ship,bullets)
 
 
-def update_screen(ai_setting, screen,stats, sb, ship, aliens, bullets, play_button):
+def update_screen(ai_setting, screen,stats, sb, ship, aliens, bullets, alienbullets, play_button):
     # 更新屏幕上的图像 并切换到新屏幕
     # 每次循环时都重新绘制屏幕
 
@@ -115,6 +115,9 @@ def update_screen(ai_setting, screen,stats, sb, ship, aliens, bullets, play_butt
     # 在飞船和外星人后面重绘所有子弹
     for bullet in bullets.sprites():
         bullet.draw_bullet()
+
+    for abullet in alienbullets.sprites():
+        abullet.draw_bullet()
 
     ship.blitme()
     aliens.draw(screen)
@@ -155,11 +158,20 @@ def fire_bullet(ai_setting, screen, ship, bullets):
         play_sound(snd_file)
 
 
+# 外星人发射子弹
+def alien_fire_bullet(ai_setting, screen, aliens, alienbullets):
+    for alien in aliens:
+        if len(alienbullets) < ai_setting.alien_bullet_allowed:
+            new_bullet = AlienBullet(ai_setting, screen, alien)
+            alienbullets.add(new_bullet)
+
+
 # 飞船撞击外星人
 def ship_hit(ai_setting, stats, screen, sb, ship, aliens, bullets):
     if stats.ships_left > 0:
         # 撞击时减少数量
         stats.ships_left -= 1
+        stats.ship_hits = 0
 
         # 声音
         snd_bang = "sound/bangbang.wav"
@@ -183,11 +195,49 @@ def ship_hit(ai_setting, stats, screen, sb, ship, aliens, bullets):
         pygame.mouse.set_visible(True)
 
 
-def update_aliens(ai_setting,stats, screen, sb, ship, aliens, bullets):
+# 检查外星人子弹与飞船碰撞
+def check_alienbullet_ship_collisions(ai_setting, screen, stats, sb, ship, aliens, bullets, alienbullets):
+
+        # 检查是否有子弹碰到飞船
+        # collisions = pygame.sprite.groupcollide(alienbullets, ship, True, True)
+        if pygame.sprite.spritecollide(ship, alienbullets,True):
+            #snd_file = "sound/bomb.wav"
+            #play_sound(snd_file)
+            # for alienbullets in collisions.values():
+                stats.ship_hits += 1
+        # print(stats.ship_hits)
+
+        # 检查飞船是否被击中100次
+        if stats.ship_hits == 100:
+            ship_hit(ai_setting, stats, screen, sb, ship, aliens, bullets)
+
+
+# 刷新外星人发射的子弹
+def update_alien_bullets(ai_setting, screen, stats, sb, ship, aliens, bullets, alienbullets):
+    # 更新子弹位置，并删除超出屏幕底部的外星人子弹
+    alienbullets.update()
+    screen_rect = screen.get_rect()
+
+    for bullet in alienbullets.copy():
+        if bullet.rect.top >= screen_rect.bottom:
+            alienbullets.remove(bullet)
+
+    check_alienbullet_ship_collisions(ai_setting, screen, stats, sb, ship, aliens, bullets, alienbullets)
+
+
+# 刷新显示外星人
+def update_aliens(ai_setting,stats, screen, sb, ship, aliens, bullets, alienbullets):
 
     check_fleet_edges(ai_setting,aliens)
     # 更新外星人所有位置
     aliens.update()
+
+
+
+    # print(len(aliens))
+
+    #刷新外星人子弹
+    update_alien_bullets(ai_setting, screen, stats, sb, ship, aliens, bullets, alienbullets)
 
     # 检查外星人飞船碰撞
     if pygame.sprite.spritecollideany(ship, aliens):
